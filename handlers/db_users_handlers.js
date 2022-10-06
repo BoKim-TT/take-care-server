@@ -1,9 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
-const config = require('../config.js');
-
-const  MONGO_URI  = config.mongo.uri;
+require('dotenv').config();
+const  MONGO_URI  = process.env.MONGO_URI
 
 const options = {
   useNewUrlParser: true,

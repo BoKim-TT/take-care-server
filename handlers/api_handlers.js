@@ -1,11 +1,12 @@
-const config = require('../config.js')
+// const config = require('../config.js')
 const axios = require('axios')
+require('dotenv').config();
 
 // MEDIASTACK API (for Health news fetch on the Homepage)
 const getNews = async (req, res) => {
 
   const params = {
-    access_key: config.newsAPI.accessKey,
+    access_key: process.env.NEWS_ACCESS_KEY,
     categories: 'health',
     languages: 'en',
   };
