@@ -1,6 +1,5 @@
 const express = require('express');
-const config = require('./config.js')
-const cors = require('cors')
+const cors = require('cors');
 
 //api handlers
 const { getMedInfo, getLabInfo, getNews } = require('./handlers/api_handlers');
@@ -25,50 +24,46 @@ const {
 
 // users data handlers
 const { registerUser, signInUser } = require('./handlers/db_users_handlers');
+const PORT = process.env.PORT;
+const app = express();
 
-express()
+app.use(express.json());
+app.use(cors());
 
-  .use(express.json())
-  .use(express.static('public'))
-  .use(cors({
-    optionsSuccessStatus: 200,
-    credentials:true,
-  }))
+// MEDIASTACK API (for Health news fetch on the Homepage)
+app.get('/api/news', getNews);
 
-  // MEDIASTACK API (for Health news fetch on the Homepage)
-  .get('/api/news', getNews)
+// MEDLINEPLUS Drug Code Requests API
+app.post('/api/med-info', getMedInfo);
 
-  // MEDLINEPLUS Drug Code Requests API 
-  .post('/api/med-info', getMedInfo)
+// MEDLINEPLUS Lab Test Code Requests API
+app.post('/api/lab-info', getLabInfo);
 
-   // MEDLINEPLUS Lab Test Code Requests API 
-  .post('/api/lab-info', getLabInfo)
+// User endpoing (signUp with email  && signIn with email)
+app.post('/data/user/signIn', signInUser);
+app.post('/data/user/signUp', registerUser);
 
-  // User endpoing (signUp with email  && signIn with email)
-  .post('/data/user/signIn', signInUser)
-  .post('/data/user/signUp', registerUser)
+// med-records endpoint
+app.get('/data/med-records/:user', getMedRecords);
+app.get('/data/med-records/:user/:_id', getAMedRecord);
+app.post('/data/med-records/:user', postMedRecord);
+app.patch('/data/med-records/:user/:_id', updateMedRecord);
+app.delete('/data/med-records/:user/:_id', deleteMedRecord);
 
-  // med-records endpoint
-  .get('/data/med-records/:user', getMedRecords)
-  .get('/data/med-records/:user/:_id', getAMedRecord)
-  .post('/data/med-records/:user', postMedRecord)
-  .patch('/data/med-records/:user/:_id', updateMedRecord)
-  .delete('/data/med-records/:user/:_id', deleteMedRecord)
+// lab-records endpoint
+app.get('/data/lab-records/:user', getLabRecords);
+app.get('/data/lab-records/:user/:_id', getALabRecord);
+app.post('/data/lab-records/:user', postLabRecord);
+app.patch('/data/lab-records/:user/:_id', updateLabRecord);
+app.delete('/data/lab-records/:user/:_id', deleteLabRecord);
 
-  // lab-records endpoint
-  .get('/data/lab-records/:user', getLabRecords)
-  .get('/data/lab-records/:user/:_id', getALabRecord)
-  .post('/data/lab-records/:user', postLabRecord)
-  .patch('/data/lab-records/:user/:_id', updateLabRecord)
-  .delete('/data/lab-records/:user/:_id', deleteLabRecord)
-
-  .get('*', (req, res) => {
-    res.status(404).json({
-      status: 404,
-      message: 'This is obviously not what you are looking for.',
-    });
-  })
-
-  .listen(config.host.port, () => {
-    console.log(`port ${config.host.port}`);
+app.get('*', (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: 'This is obviously not what you are looking for.',
   });
+});
+
+app.listen(PORT, () => {
+  console.log(`server is starting at  ${PORT}`);
+});

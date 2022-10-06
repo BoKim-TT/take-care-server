@@ -16,7 +16,4 @@ module.exports = {
     accessKey: required('NEWS_ACCESS_KEY'),
   },
 
-  host: {
-    port: parseInt(required('PORT', 8000)),
-  },
 };
