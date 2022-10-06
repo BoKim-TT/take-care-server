@@ -29,7 +29,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 // MEDIASTACK API (for Health news fetch on the Homepage)
 app.get('/api/news', getNews);
