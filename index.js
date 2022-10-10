@@ -24,7 +24,7 @@ const {
 } = require('./handlers/db_lab_handlers');
 
 // users data handlers
-const { registerUser, signInUser } = require('./handlers/db_users_handlers');
+const { registerUser, signInUser, getUsers } = require('./handlers/db_users_handlers');
 const PORT = process.env.PORT;
 const app = express();
 
@@ -43,6 +43,7 @@ app.post('/api/lab-info', getLabInfo);
 // User endpoing (signUp with email  && signIn with email)
 app.post('/data/user/signIn', signInUser);
 app.post('/data/user/signUp', registerUser);
+app.get ('data/user', getUsers);
 
 // med-records endpoint
 app.get('/data/med-records/:user', getMedRecords);
