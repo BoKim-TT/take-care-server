@@ -138,7 +138,7 @@ const getUsers = async (req, res) => {
     if(foundUser){
       return res.status(200).json({data: foundUser})
     } else{
-      return res.status(404).json({'no user found'})
+      return res.status(404).json({message: 'no user found'})
     }
   } catch (err) {
     console.log(err);
