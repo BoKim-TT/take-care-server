@@ -1,10 +1,7 @@
 # Take care 
 
-<img width="1320" alt="homePage" src="https://user-images.githubusercontent.com/25041649/204112163-7a33a46b-ca39-4f50-8627-3f8ec5768b3a.png">
-<img width="1314" alt="Screen Shot 2022-11-26 at 6 26 52 PM" src="https://user-images.githubusercontent.com/25041649/204112613-a7d6bad7-9b82-4c20-8620-3835339f96da.png">
-<img width="922" alt="Screen Shot 2022-11-26 at 6 27 40 PM" src="https://user-images.githubusercontent.com/25041649/204112624-a6c36d0d-c01b-4cf4-8cb0-be450c86c180.png">
-<img width="921" alt="Screen Shot 2022-11-26 at 6 29 00 PM" src="https://user-images.githubusercontent.com/25041649/204112631-ee9d669f-58aa-4b88-9807-9da48062f8c4.png">
 
+https://user-images.githubusercontent.com/25041649/205819116-8f4d6914-d726-4090-b045-da74569f884b.mp4
 
 # Overview
 
@@ -12,7 +9,7 @@ Personal healthcare record web app that registered user can keep their health re
 
 # Purpose
 
-This app could save people time and money when managing their health conditions by remembering the side effects of certain medications or recommendations from their prescribers
+This project aims to improve healthcare outcomes and help users save time and money by having instant access to their medication history and lab results.
 
 # Features
 
