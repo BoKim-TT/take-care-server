@@ -33,7 +33,7 @@ const getLabRecords = async (req, res) => {
       });
     } else {
        // if there is no records under user
-      return res.status(404).json({ status: 404, message: 'no data found' });
+      return res.status(404).json({ status: 404, message: 'no records found' });
     }
   } catch (error) {
     console.log(error);

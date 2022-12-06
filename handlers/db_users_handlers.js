@@ -128,23 +128,5 @@ const signInUser = async (req, res) => {
   console.log('closed');
 };
 
-const getUsers = async (req, res) => {
-  try {
-    await client.connect();
 
-    const db = client.db('medical_records');
-
-    const foundUser = await db.collection('users').find().toArray();
-    if(foundUser){
-      return res.status(200).json({data: foundUser})
-    } else{
-      return res.status(404).json({message: 'no user found'})
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
-  client.close();
-  console.log('closed');
-};
-module.exports = { registerUser, signInUser, getUsers };
+module.exports = { registerUser, signInUser};
