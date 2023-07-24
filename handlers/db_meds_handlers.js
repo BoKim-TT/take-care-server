@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
-const  MONGO_URI  = process.env.MONGO_URI
+const MONGO_URI = process.env.MONGO_URI;
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -12,7 +12,7 @@ const client = new MongoClient(MONGO_URI, options);
 const getMedRecords = async (req, res) => {
   const user = req.params.user;
 
-// when there is no params of user
+  // when there is no params of user
   if (user === 'undefined') {
     return res.status(404).json({ status: 404, message: 'user undefined' });
   }
@@ -22,7 +22,7 @@ const getMedRecords = async (req, res) => {
 
     const db = client.db('medical_records');
     const result = await db.collection('meds').findOne({ user: user });
-    
+
     // if user's records exists
     if (result) {
       return res.status(200).json({
@@ -45,17 +45,16 @@ const getMedRecords = async (req, res) => {
 
 // get a med record
 const getAMedRecord = async (req, res) => {
-
   const { user, _id } = req.params;
 
   try {
     await client.connect();
- 
+
     const db = client.db('medical_records');
     const result = await db.collection('meds').findOne({ user: user });
     const record = result.records.find((record) => record._id === _id);
-  
-  // if user's records exists
+
+    // if user's records exists
     if (record) {
       return res.status(200).json({
         status: 200,
@@ -78,22 +77,23 @@ const getAMedRecord = async (req, res) => {
 const postMedRecord = async (req, res) => {
   const user = req.params.user;
 
-// form validation check
-  if (!req.body.date || !user) {
+  // form validation check
+  if (!user) {
     return res.status(400).json({
       status: 400,
       data: req.body,
-      message: ' request form is invalid',
+      message: 'The user provided is not valid.',
     });
   }
+
   try {
     await client.connect();
-   
+
     const db = client.db('medical_records');
     const _id = uuidv4();
     const findOne = await db.collection('meds').findOne({ user: user });
-  
-  // if users's data exists, update with a new record
+
+    // if users's data exists, update with a new record
     if (findOne) {
       const result = await db
         .collection('meds')
@@ -101,7 +101,7 @@ const postMedRecord = async (req, res) => {
           { user: user },
           { $push: { records: { ...req.body, _id } } }
         );
-    
+
       if (result.modifiedCount === 1) {
         return res.status(200).json({
           status: 200,
@@ -117,12 +117,11 @@ const postMedRecord = async (req, res) => {
       }
     }
 
- // if there is no users's data, make a new one
+    // if there is no users's data, make a new one
     if (!findOne) {
       const result = await db
         .collection('meds')
         .insertOne({ user: user, records: [{ ...req.body, _id }] });
-   
 
       if (result.insertedId) {
         return res.status(200).json({
@@ -144,7 +143,6 @@ const postMedRecord = async (req, res) => {
   }
 
   client.close();
-  
 };
 
 //update a medication record
@@ -162,9 +160,8 @@ const updateMedRecord = async (req, res) => {
     fileURL,
   } = req.body;
 
- 
-//form validation check
-  if (!_id || !user || !date) {
+  //form validation check
+  if (!_id || !user) {
     return res.status(400).json({
       status: 400,
       data: req.body,
@@ -174,9 +171,9 @@ const updateMedRecord = async (req, res) => {
 
   try {
     await client.connect();
-   
+
     const db = client.db('medical_records');
-    
+
     // update user's single record
     const result = await db
       .collection('meds')
@@ -184,7 +181,7 @@ const updateMedRecord = async (req, res) => {
         { user: user, 'records._id': _id },
         { $set: { 'records.$': req.body } }
       );
-   
+
     if (result.modifiedCount === 1) {
       return res
         .status(200)
@@ -211,11 +208,10 @@ const deleteMedRecord = async (req, res) => {
     await client.connect();
     const db = client.db('medical_records');
 
- // delete user's single record 
+    // delete user's single record
     const result = await db
       .collection('meds')
       .updateOne({ user: user }, { $pull: { records: { _id: _id } } });
-   
 
     if (result.modifiedCount === 1) {
       return res
