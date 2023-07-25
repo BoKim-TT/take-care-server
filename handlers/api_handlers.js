@@ -1,10 +1,9 @@
 // const config = require('../config.js')
-const axios = require('axios')
+const axios = require('axios');
 require('dotenv').config();
 
 // MEDIASTACK API (for Health news fetch on the Homepage)
 const getNews = async (req, res) => {
-
   const params = {
     access_key: process.env.NEWS_ACCESS_KEY,
     categories: 'health',
@@ -15,12 +14,11 @@ const getNews = async (req, res) => {
       params,
     });
 
-    res.status(200).json({ status: 200, data: response.data.data });
+    res.status(200).json({ status: 200, data: response.data.data.slice(0, 5) });
   } catch (err) {
     console.log(err);
   }
 };
-
 
 // MEDLINEPLUS Drug Code Requests API
 const getMedInfo = async (req, res) => {
@@ -36,7 +34,6 @@ const getMedInfo = async (req, res) => {
     console.log(err);
   }
 };
-
 
 // MEDLINEPLUS Lab Test Code Requests API
 const getLabInfo = (req, res) => {
@@ -68,6 +65,5 @@ const getLabInfo = (req, res) => {
     console.log(err);
   }
 };
-
 
 module.exports = { getMedInfo, getLabInfo, getNews };
