@@ -2,7 +2,8 @@
 
 
 
-https://user-images.githubusercontent.com/25041649/206004197-b920936c-b323-40ce-b670-b38863a3d92b.mp4
+
+https://github.com/Bokyung-Kim06/take-care-server/assets/25041649/df91b392-3672-46b8-bff4-f537cc9790db
 
 
 
