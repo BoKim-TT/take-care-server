@@ -1,11 +1,5 @@
 # Take care 
-
-
-
-
-https://github.com/Bokyung-Kim06/take-care-server/assets/25041649/df91b392-3672-46b8-bff4-f537cc9790db
-
-
+https://github.com/Bokyung-Kim06/take-care-server/assets/25041649/8326b36f-88b5-43e0-9e20-9e4677160e59
 
 
 # Overview
